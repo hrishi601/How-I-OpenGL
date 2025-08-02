@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Src\Abstraction;Src\Primitives;Src\Vendor;$(SolutionDir)3DCube\Dependencies\GLFW\include;$(SolutionDir)3DCube\Dependencies\GLEW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src\Debuger;Src\Abstraction;Src\Primitives;Src\Vendor;$(SolutionDir)3DCube\Dependencies\GLFW\include;$(SolutionDir)3DCube\Dependencies\GLEW\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Src\Abstraction;Src\Primitives;Src\Vendor;$(SolutionDir)3DCube\Dependencies\GLFW\include;$(SolutionDir)3DCube\Dependencies\GLEW\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src\Debuger;Src\Abstraction;Src\Primitives;Src\Vendor;$(SolutionDir)3DCube\Dependencies\GLFW\include;$(SolutionDir)3DCube\Dependencies\GLEW\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -136,6 +136,7 @@
     <ClCompile Include="Src\Abstraction\VertexArray\VertexBufferLayout.cpp" />
     <ClCompile Include="Src\Abstraction\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="Src\Application.cpp" />
+    <ClCompile Include="Src\Camera\Camera.cpp" />
     <ClCompile Include="Src\Primitives\ShapeGenerator.cpp" />
     <ClCompile Include="Src\Shader\Shader.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Src\Abstraction\VertexArray\VertexArray.h" />
     <ClInclude Include="Src\Abstraction\VertexArray\VertexBufferLayout.h" />
     <ClInclude Include="Src\Abstraction\VertexBuffer\VertexBuffer.h" />
+    <ClInclude Include="Src\Camera\Camera.h" />
     <ClInclude Include="Src\Debuger\Debuger.h" />
     <ClInclude Include="Src\Primitives\ShapeData.h" />
     <ClInclude Include="Src\Primitives\ShapeGenerator.h" />
