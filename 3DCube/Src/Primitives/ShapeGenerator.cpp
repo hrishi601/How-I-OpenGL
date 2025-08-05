@@ -2,6 +2,7 @@
 #include "glm/glm.hpp"
 #include "Vertex.h"
 #include "ShapeData.h"
+#include "Debuger.h"
 
 #define NUM_ARRAY_ELEMENTS(a) sizeof(a)/sizeof(*a)
 
@@ -105,4 +106,45 @@ ShapeData ShapeGenerator::MakeCube()
     memcpy(Cube.Indices, stackIndices, sizeof(stackIndices));
 
     return Cube;
+}
+
+ShapeData ShapeGenerator::MakePlane(const int Dimension)
+{
+    
+    ShapeData Plane;
+    Plane.NumVertices = Dimension * Dimension;
+    int Half = Dimension / 2;
+    Plane.Vertices = new Vertex[Plane.NumVertices];
+
+    for (int i = 0; i < Dimension; i++)
+    {
+        for (int j = 0; j < Dimension; j++)
+        {
+            Vertex& thisVert = Plane.Vertices[i * Dimension + j];
+            thisVert.Position.x = j - Half;
+            thisVert.Position.y = i - Half;
+            thisVert.Position.z = 0;
+            thisVert.Color = vec3(1.0f, 0.0f, 0.0f);
+        }
+    }
+
+    Plane.NumIndices = (Dimension - 1) * (Dimension - 1) * 2 * 3; // 2 triangles per square, 3 indices per triangle
+    Plane.Indices = new unsigned short[Plane.NumIndices];
+    int runner = 0;
+    for (int row = 0; row < Dimension - 1; row++)
+    {
+        for (int col = 0; col < Dimension - 1; col++)
+        {
+            Plane.Indices[runner++] = Dimension * row + col;
+            Plane.Indices[runner++] = Dimension * row + col + Dimension;
+            Plane.Indices[runner++] = Dimension * row + col + Dimension + 1;
+             
+            Plane.Indices[runner++] = Dimension * row + col;
+            Plane.Indices[runner++] = Dimension * row + col + Dimension + 1;
+            Plane.Indices[runner++] = Dimension * row + col + 1;
+        }
+    }
+    assert(runner == Plane.NumIndices);
+
+    return Plane;
 }

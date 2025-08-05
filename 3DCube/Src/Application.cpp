@@ -51,12 +51,13 @@ int main(void)
 
 
     ShapeData Cube = ShapeGenerator::MakeCube();
+    ShapeData Plane = ShapeGenerator::MakePlane(4);
 
     VertexArray Vao;
 
-    VertexBuffer Vb(Cube);
+    VertexBuffer Vb(Plane);
 
-    IndexBuffer Ib(Cube);
+    IndexBuffer Ib(Plane);
 
     VertexBufferLayout Layout;
 	Layout.Push(3, GL_FLOAT, GL_FALSE);// Position
@@ -69,13 +70,9 @@ int main(void)
 
 	Camera Camera(window);
 
-    mat4 Proj = perspective(90.0f, 640.0f / 480.0f, 0.1f, 10.0f);
-    mat4 Model = translate(mat4(1.0f), vec3(0, 0, 0));
-    mat4 Rotation = rotate(mat4(1.0f), 45.0f, vec3(1, 0, 0));
-    mat4 MVP = Proj *Camera.GetWorldToViewMatrix()* Model * Rotation;
-
-    Shader.UpdateUniformMat4f("MVP", MVP);
-
+    
+    Cube.CleanUp();
+    Plane.CleanUp();
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -86,15 +83,17 @@ int main(void)
         glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, width, height);
 
-        mat4 Proj = perspective(90.0f, 640.0f / 480.0f, 0.1f, 10.0f);
+		Camera.UpdateCameraPosition(window);
+
+        mat4 Proj = perspective(glm::radians(90.0f), 640.0f / 480.0f, 0.1f, 10.0f);
         mat4 Model = translate(mat4(1.0f), vec3(0, 0, 0));
-        mat4 Rotation = rotate(mat4(1.0f), 45.0f, vec3(1, 0, 0));
+        mat4 Rotation = rotate(mat4(1.0f), 0.0f, vec3(1, 0, 0));
         mat4 MVP = Proj * Camera.GetWorldToViewMatrix() * Model * Rotation;
 
         Shader.UpdateUniformMat4f("MVP", MVP);
 
         
-        glDrawElements(GL_TRIANGLES, Cube.NumIndices, GL_UNSIGNED_SHORT, nullptr);
+        glDrawElements(GL_TRIANGLES, Plane.NumIndices, GL_UNSIGNED_SHORT, nullptr);
 
 
         /* Swap front and back buffers */
