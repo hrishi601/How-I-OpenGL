@@ -125,6 +125,7 @@ ShapeData ShapeGenerator::MakePlane(const int Dimension)
             thisVert.Position.y = i - Half;
             thisVert.Position.z = 0;
             thisVert.Color = vec3(1.0f, 0.0f, 0.0f);
+            thisVert.Normal = vec3(0.0f, 1.0f, 0.0f);
         }
     }
 

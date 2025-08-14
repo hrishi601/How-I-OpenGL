@@ -50,8 +50,8 @@ int main(void)
 
 
 
-    ShapeData Cube = ShapeGenerator::MakeCube();
-    ShapeData Plane = ShapeGenerator::MakePlane(4);
+   
+    ShapeData Plane = ShapeGenerator::MakePlane(5);
 
     VertexArray Vao;
 
@@ -62,6 +62,7 @@ int main(void)
     VertexBufferLayout Layout;
 	Layout.Push(3, GL_FLOAT, GL_FALSE);// Position
     Layout.Push(3, GL_FLOAT, GL_FALSE);// Color
+    Layout.Push(3, GL_FLOAT, GL_FALSE);// Normal
 
 	Vao.AddBuffers(Vb, Ib, Layout); 
 
@@ -70,8 +71,10 @@ int main(void)
 
 	Camera Camera(window);
 
+    vec3 LightLocation = vec3(0.0f, 0.5f, 0.0f);
+    Shader.UpdateUniformVec3f("LightLocation", LightLocation);
     
-    Cube.CleanUp();
+    
     Plane.CleanUp();
 
     /* Loop until the user closes the window */
@@ -87,10 +90,12 @@ int main(void)
 
         mat4 Proj = perspective(glm::radians(90.0f), 640.0f / 480.0f, 0.1f, 10.0f);
         mat4 Model = translate(mat4(1.0f), vec3(0, 0, 0));
-        mat4 Rotation = rotate(mat4(1.0f), 0.0f, vec3(1, 0, 0));
-        mat4 MVP = Proj * Camera.GetWorldToViewMatrix() * Model * Rotation;
-
+        mat4 Rotation = rotate(mat4(1.0f), glm::radians(90.f), vec3(1, 0, 0));
+        mat4 ModelToWorld = Model * Rotation;
+        mat4 MVP = Proj  * Camera.GetWorldToViewMatrix() * ModelToWorld;
+        
         Shader.UpdateUniformMat4f("MVP", MVP);
+        Shader.UpdateUniformMat4f("ModelToWorldMat", ModelToWorld);
 
         
         glDrawElements(GL_TRIANGLES, Plane.NumIndices, GL_UNSIGNED_SHORT, nullptr);

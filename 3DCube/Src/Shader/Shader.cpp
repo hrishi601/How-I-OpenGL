@@ -139,3 +139,7 @@ void Shader::UpdateUniformMat4f(const std::string& Name, glm::mat4 matrix)
 {
     glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &matrix[0][0]);
 }
+void Shader::UpdateUniformVec3f(const std::string& Name, glm::vec3 vector)
+{
+    glUniform3f(GetUniformLocation(Name),vector.x,vector.y,vector.z);
+};

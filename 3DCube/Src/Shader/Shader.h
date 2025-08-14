@@ -22,6 +22,7 @@ public:
 	void UpdateUniform4f(const std::string& Name, float v0, float v1, float v2, float v3);
 	void UpdateUniform1i(const std::string& Name, int Value);
 	void UpdateUniformMat4f(const std::string& Name, glm::mat4 matrix);
+	void UpdateUniformVec3f(const std::string& Name, glm::vec3 vector);
 
 
 
